@@ -1,0 +1,44 @@
+{
+  "name": "install-npm-version",
+  "version": "1.0.0",
+  "description": "Install multiple versions of a NPM package side-by-side.",
+  "main": "gulpfile.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha -r ts-node/register test/**/*.spec.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scott-lin/install-npm-version.git"
+  },
+  "keywords": [
+    "install"
+  ],
+  "author": "Scott Lin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/scott-lin/install-npm-version/issues"
+  },
+  "homepage": "https://github.com/scott-lin/install-npm-version#readme",
+  "dependencies": {
+    "npm": "^6.4.1",
+    "sanitize-filename": "^1.6.1"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^10.12.3",
+    "@types/npm": "^2.0.29",
+    "@types/sanitize-filename": "^1.1.28",
+    "chai": "^4.2.0",
+    "del": "^3.0.0",
+    "gulp": "^4.0.0",
+    "gulp-mocha": "^6.0.0",
+    "gulp-typescript": "^5.0.0-alpha.3",
+    "mocha": "^5.2.0",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.1.6"
+  }
+}
