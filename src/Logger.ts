@@ -8,7 +8,7 @@ export class Logger {
     }
 
     Write(message: string, verbosity: Verbosity, ...optionalParams: any[]): void {
-        if (verbosity >= this.MinimumVerbosity) {
+        if (verbosity >= this.MinimumVerbosity && verbosity !== Verbosity.None) {
             console.log(message, ...optionalParams);
         }
     }

@@ -28,11 +28,13 @@
   },
   "devDependencies": {
     "@types/chai": "^4.1.7",
+    "@types/chai-spies": "^1.0.0",
     "@types/mocha": "^5.2.5",
     "@types/node": "^10.12.3",
     "@types/npm": "^2.0.29",
     "@types/sanitize-filename": "^1.1.28",
     "chai": "^4.2.0",
+    "chai-spies": "^1.0.0",
     "del": "^3.0.0",
     "gulp": "^4.0.0",
     "gulp-mocha": "^6.0.0",
