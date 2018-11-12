@@ -54,5 +54,5 @@ describe("Settings", () => {
             expect(settings.Verbosity).to.equal(Verbosity.None);
             expect(settings.WorkingDirectory).to.equal(options.WorkingDirectory);
         });
-    })
+    });
 });
