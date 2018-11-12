@@ -59,8 +59,8 @@ export default async function (npmPackage: string, options?: IOptions): Promise<
         }
 
         if (error) {
-            console.error(`Error encountered while installing ${settings.NpmPackage} NPM package.`)
-            console.error(error.toString());
+            logger.WriteError(`Error encountered while installing ${settings.NpmPackage} NPM package.`)
+            logger.WriteError(error.toString());
             process.exit(1);
         }
     }

@@ -7,9 +7,13 @@ export class Logger {
         this.MinimumVerbosity = minimumVerbosity;
     }
 
-    Write(message: string, verbosity: Verbosity, ...optionalParams: any[]): void {
+    Write(message: string, verbosity: Verbosity): void {
         if (verbosity >= this.MinimumVerbosity && verbosity !== Verbosity.None) {
-            console.log(message, ...optionalParams);
+            process.stdout.write(`${message}\n`);
         }
+    }
+
+    WriteError(message: string): void {
+        process.stderr.write(`${message}\n`);
     }
 }

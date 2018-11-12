@@ -25,23 +25,23 @@ describe("Logger", () => {
     });
 
     describe('Write', () => {
-        let consoleLogFunction: any;
+        let loggerWriteFunction: any;
         const debugMessage = `Hello from ${Verbosity.Debug} verbosity.`;
         const defaultMessage = `Hello from ${Verbosity.Default} verbosity.`;
         const noneMessage = `Hello from ${Verbosity.None} verbosity.`;
 
         beforeEach(function () {
-            consoleLogFunction = console.log;
+            loggerWriteFunction = process.stdout.write;
         });
 
         afterEach(function () {
-            console.log = consoleLogFunction;
+            process.stdout.write = loggerWriteFunction;
         });
 
         it(`Should write message when verbosity satisfies logger's minimum verbosity of "${Verbosity.Debug}"`, () => {
             // Arrange
             //
-            chai.spy.on(console, 'log', function () {});
+            chai.spy.on(process.stdout, 'write', function () {});
             const logger = new Logger(Verbosity.Debug);
 
             // Act
@@ -52,16 +52,16 @@ describe("Logger", () => {
 
             // Assert
             //
-            expect(console.log).to.have.been.called.exactly(2);
-            expect(console.log).to.have.been.first.called.with.exactly(debugMessage);
-            expect(console.log).to.have.been.second.called.with.exactly(defaultMessage);
-            expect(console.log).to.have.not.been.called.with.exactly(noneMessage);
+            expect(process.stdout.write).to.have.been.called.exactly(2);
+            expect(process.stdout.write).to.have.been.first.called.with(debugMessage + '\n');
+            expect(process.stdout.write).to.have.been.second.called.with(defaultMessage + '\n');
+            expect(process.stdout.write).to.have.not.been.called.with(noneMessage + '\n');
         });
 
         it(`Should write message when verbosity satisfies logger's minimum verbosity of "${Verbosity.Default}"`, () => {
             // Arrange
             //
-            chai.spy.on(console, 'log', function () {});
+            chai.spy.on(process.stdout, 'write', function () {});
             const logger = new Logger(Verbosity.Default);
 
             // Act
@@ -72,16 +72,16 @@ describe("Logger", () => {
 
             // Assert
             //
-            expect(console.log).to.have.been.called.exactly(1);
-            expect(console.log).to.have.not.been.called.with.exactly(debugMessage);
-            expect(console.log).to.have.been.first.called.with.exactly(defaultMessage);
-            expect(console.log).to.have.not.been.called.with.exactly(noneMessage);
+            expect(process.stdout.write).to.have.been.called.exactly(1);
+            expect(process.stdout.write).to.have.not.been.called.with(debugMessage + '\n');
+            expect(process.stdout.write).to.have.been.first.called.with(defaultMessage + '\n');
+            expect(process.stdout.write).to.have.not.been.called.with(noneMessage + '\n');
         });
 
         it(`Should write message when verbosity satisfies logger's minimum verbosity of "${Verbosity.None}"`, () => {
             // Arrange
             //
-            chai.spy.on(console, 'log', function () {});
+            chai.spy.on(process.stdout, 'write', function () {});
             const logger = new Logger(Verbosity.None);
 
             // Act
@@ -92,10 +92,10 @@ describe("Logger", () => {
 
             // Assert
             //
-            expect(console.log).to.have.been.called.exactly(0);
-            expect(console.log).to.have.not.been.called.with.exactly(debugMessage);
-            expect(console.log).to.have.not.been.called.with.exactly(defaultMessage);
-            expect(console.log).to.have.not.been.called.with.exactly(noneMessage);
+            expect(process.stdout.write).to.have.been.called.exactly(0);
+            expect(process.stdout.write).to.have.not.been.called.with(debugMessage + '\n');
+            expect(process.stdout.write).to.have.not.been.called.with(defaultMessage + '\n');
+            expect(process.stdout.write).to.have.not.been.called.with(noneMessage + '\n');
         });
     });
 });
