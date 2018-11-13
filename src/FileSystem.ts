@@ -5,7 +5,24 @@ import fs = require('fs');
 import path = require('path');
 
 export class FileSystem {
+    
+    /*
+     * Recursively reads files & directories from a source location and writes them to another location.
+     *
+     * @param sourceDirectoryPath Path where files & directories should be read.
+     * @param destinationPath Path where files & directories should be written.
+     * @param isParent True indicates items will be written to a newly created subfolder, with the same name as the source,
+     *                 at the destination path. False indicates items will be written directly into the destination directory.
+     */
     static CopyDirectoryRecursively(sourceDirectoryPath: string, destinationPath: string, isParent = true) {
+        if (!sourceDirectoryPath) {
+            throw new Error('Source directory path must be defined.');
+        }
+
+        if (!destinationPath) {
+            throw new Error('Destination path must be defined.');
+        }
+
         if (fs.lstatSync(sourceDirectoryPath).isDirectory()) {
             // Create a directory, with the same name as the source, at the destination root when it does not exist.
             //
@@ -33,6 +50,13 @@ export class FileSystem {
         }
     }
 
+    /*
+     * Copies any NPM config file found in the working directory to a destination when applicable based on settings. 
+     *
+     * @param settings Settings to control when to copy and from where.
+     * @param logger Entity to use when writing logging messages.
+     * @param destinationPath Path to copy to.
+     */
     static CopyNpmrcFile(settings: Settings, logger: Logger, destinationPath: string) {
         if (settings.UseLocalNpmrcFile) {
             const npmrcFilePath = path.join(settings.WorkingDirectory, '.npmrc');
@@ -44,6 +68,13 @@ export class FileSystem {
         }
     }
 
+    /*
+     * Copies a module's dependencies into a "node_modules" subfolder.
+     *
+     * @param logger Entity to use when writing logging messages.
+     * @param packageName Name of the package to copy dependencies for.
+     * @param installPath Path to parent folder of "node_modules" where the package is installed.
+     */
     static CopyPackageDependencies(logger: Logger, packageName: string, installPath: string) {
         const installationNodeModulesPath = path.join(installPath, 'node_modules');
         const packageNodeModulesPath = path.join(installationNodeModulesPath, packageName, 'node_modules');
@@ -70,6 +101,13 @@ export class FileSystem {
             });
     }
 
+    /*
+     * Deletes a directory and all its contents.
+     *
+     * @param directoryPath Path of directory to delete.
+     *
+     * @returns True if deletion occurred. Otherwise, false.
+     */
     static RemoveDirectoryRecursively(directoryPath: string): boolean {
         if (fs.existsSync(directoryPath) && fs.lstatSync(directoryPath).isDirectory()) {
             fs.readdirSync(directoryPath).forEach(function(item) {

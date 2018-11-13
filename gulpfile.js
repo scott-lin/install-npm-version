@@ -10,6 +10,7 @@ const paths = {
     build: {
         output: 'built'
     },
+    package: 'package',
     source: 'src',
     test: 'test',
     typescript: {
@@ -29,7 +30,7 @@ function buildSource() {
 }
 
 function clean() {
-    return del([`${paths.build.output}/**/*`]);
+    return del([`${paths.build.output}/**/*`, `${paths.package}/**/*`]);
 }
 
 function runTests() {
@@ -40,11 +41,16 @@ function runTests() {
         }));
 }
 
+function stagePackage() {
+    gulp.src(['LICENSE', 'package.json', 'README.md'], { base: './' }).pipe(gulp.dest(`${paths.package}/`));
+    
+    return gulp.src([`${paths.build.output}/${paths.source}/**/*.js`], { base: `${paths.build.output}/${paths.source}/` })
+        .pipe(gulp.dest(`${paths.package}/lib/`));
+}
+
 //
 // Define gulp tasks.
 //
-var build = gulp.series(buildSource);
-var defaultTasks = [clean, build];
-
-gulp.task('default', gulp.series(defaultTasks));
+gulp.task('default', gulp.series(clean, buildSource, gulp.parallel(runTests, stagePackage)));
+gulp.task('build', gulp.series(clean, buildSource));
 gulp.task('test', runTests);

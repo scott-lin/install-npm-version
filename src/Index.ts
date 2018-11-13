@@ -7,6 +7,12 @@ import { Verbosity } from './Verbosity';
 import fs = require('fs');
 import path = require('path');
 
+/*
+ * Installs a NPM package with optional settings.
+ *
+ * @param npmPackage NPM package to install.
+ * @param options Optional settings to control the installation.
+ */
 export default async function (npmPackage: string, options?: IOptions): Promise<void> {
     if (!npmPackage) {
         throw new Error('A NPM package to install must be specified. moment@2.22.2 or lodash@4.17.11 are examples.');

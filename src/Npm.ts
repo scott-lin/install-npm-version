@@ -8,6 +8,14 @@ import npm = require('npm');
 import path = require('path');
 
 export class Npm {
+    /*
+     * Writes a message to standard output followed by a line break.
+     *
+     * @param settings Settings controlling which package is inspected.
+     * @param logger Entity to use when writing logging messages.
+     * 
+     * @returns Package name as registered in NPMjs.org.
+     */
     static async GetPackageName(settings: Settings, logger: Logger): Promise<string> {
         return new Promise<string>(async (resolve, reject) => {
             // NPM must be loaded before the fetch package metadata function can be made.
@@ -26,6 +34,13 @@ export class Npm {
         });
     }
 
+    /*
+     * Installs a package to the specified location.
+     *
+     * @param settings Settings controlling which package is installed.
+     * @param logger Entity to use when writing logging messages.
+     * @param installPath Path to install package at.
+     */
     static InstallPackage(settings: Settings, logger: Logger, installPath: string) {
         // Before installing, make an effort to copy over and use any NPM config already present.
         //

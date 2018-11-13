@@ -2,7 +2,7 @@
   "name": "install-npm-version",
   "version": "1.0.0",
   "description": "Install multiple versions of a NPM package side-by-side.",
-  "main": "gulpfile.js",
+  "main": "/lib/Index.js",
   "directories": {
     "test": "test"
   },
