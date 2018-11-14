@@ -41,7 +41,7 @@ export class Npm {
      * @param logger Entity to use when writing logging messages.
      * @param installPath Path to install package at.
      */
-    static InstallPackage(settings: Settings, logger: Logger, installPath: string) {
+    static InstallPackage(settings: Settings, logger: Logger, installPath: string): void {
         // Before installing, make an effort to copy over and use any NPM config already present.
         //
         FileSystem.CopyNpmrcFile(settings, logger, installPath);

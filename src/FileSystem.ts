@@ -14,7 +14,7 @@ export class FileSystem {
      * @param isParent True indicates items will be written to a newly created subfolder, with the same name as the source,
      *                 at the destination path. False indicates items will be written directly into the destination directory.
      */
-    static CopyDirectoryRecursively(sourceDirectoryPath: string, destinationPath: string, isParent = true) {
+    static CopyDirectoryRecursively(sourceDirectoryPath: string, destinationPath: string, isParent = true): void {
         if (!sourceDirectoryPath) {
             throw new Error('Source directory path must be defined.');
         }
@@ -57,7 +57,7 @@ export class FileSystem {
      * @param logger Entity to use when writing logging messages.
      * @param destinationPath Path to copy to.
      */
-    static CopyNpmrcFile(settings: Settings, logger: Logger, destinationPath: string) {
+    static CopyNpmrcFile(settings: Settings, logger: Logger, destinationPath: string): void {
         if (settings.UseLocalNpmrcFile) {
             const npmrcFilePath = path.join(settings.WorkingDirectory, '.npmrc');
 
@@ -75,7 +75,7 @@ export class FileSystem {
      * @param packageName Name of the package to copy dependencies for.
      * @param installPath Path to parent folder of "node_modules" where the package is installed.
      */
-    static CopyPackageDependencies(logger: Logger, packageName: string, installPath: string) {
+    static CopyPackageDependencies(logger: Logger, packageName: string, installPath: string): void {
         const installationNodeModulesPath = path.join(installPath, 'node_modules');
         const packageNodeModulesPath = path.join(installationNodeModulesPath, packageName, 'node_modules');
 
