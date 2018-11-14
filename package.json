@@ -1,8 +1,9 @@
 {
   "name": "install-npm-version",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Install multiple versions of a NPM package side-by-side.",
   "main": "/lib/Install.js",
+  "types": "./lib/Install.d.ts",
   "bin": {
     "inv": "lib/cli/Run.js",
     "install-npm-version": "lib/cli/Run.js"

@@ -43,6 +43,7 @@ function runTests() {
 
 function stagePackage() {
     gulp.src(['LICENSE', 'package.json', 'README.md'], { base: './' }).pipe(gulp.dest(`${paths.package}/`));
+    gulp.src([`${paths.source}/Install.d.ts`], { base: `${paths.source}/` }).pipe(gulp.dest(`${paths.package}/lib/`));
     
     return gulp.src([`${paths.build.output}/${paths.source}/**/*.js`], { base: `${paths.build.output}/${paths.source}/` })
         .pipe(gulp.dest(`${paths.package}/lib/`));
