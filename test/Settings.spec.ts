@@ -35,7 +35,7 @@ describe("Settings", () => {
                 Destination: 'installFolder',
                 Overwrite: true,
                 UseLocalNpmrcFile: false,
-                Verbosity: 'nonE',
+                Verbosity: 'sileNt',
                 WorkingDirectory: './some/path',
             };
 
@@ -51,7 +51,7 @@ describe("Settings", () => {
             expect(settings.NpmPackage).to.equal(npmPackage);
             expect(settings.Overwrite).to.be.true;
             expect(settings.UseLocalNpmrcFile).to.be.false;
-            expect(settings.Verbosity).to.equal(Verbosity.None);
+            expect(settings.Verbosity).to.equal(Verbosity.Silent);
             expect(settings.WorkingDirectory).to.equal(options.WorkingDirectory);
         });
     });

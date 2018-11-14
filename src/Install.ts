@@ -33,6 +33,13 @@ export default async function (npmPackage: string, options?: IOptions): Promise<
         return;
     }
 
+    // Ensure the node_modules path exists.
+    //
+    if (!fs.existsSync(settings.NodeModulesPath)) {
+        fs.mkdirSync(settings.NodeModulesPath, { recursive: true });
+        logger.Write(`Node modules directory created at "${settings.NodeModulesPath}".`, Verbosity.Debug);
+    }
+
     // Create a temporary directory where we will stage the NPM installation.
     //
     const temporaryStagingPath = fs.mkdtempSync(path.join(settings.NodeModulesPath, '.install-npm-version-temp-'));

@@ -31,8 +31,8 @@ export class Settings {
                 case Verbosity.Default.toLowerCase():
                     this.Verbosity = Verbosity.Default;
                     break;
-                case Verbosity.None.toLowerCase():
-                    this.Verbosity = Verbosity.None;
+                case Verbosity.Silent.toLowerCase():
+                    this.Verbosity = Verbosity.Silent;
                     break;
                 default:
                     throw new Error(`Verbosity of "${options.Verbosity}" is not supported.`);

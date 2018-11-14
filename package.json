@@ -1,10 +1,11 @@
 {
   "name": "install-npm-version",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Install multiple versions of a NPM package side-by-side.",
-  "main": "/lib/Index.js",
-  "directories": {
-    "test": "test"
+  "main": "/lib/Install.js",
+  "bin": {
+    "inv": "lib/cli/Run.js",
+    "install-npm-version": "lib/cli/Run.js"
   },
   "scripts": {
     "test": "mocha -r ts-node/register test/**/*.spec.ts"
@@ -23,12 +24,14 @@
   },
   "homepage": "https://github.com/scott-lin/install-npm-version#readme",
   "dependencies": {
+    "minimist": "^1.2.0",
     "npm": "^6.4.1",
     "sanitize-filename": "^1.6.1"
   },
   "devDependencies": {
     "@types/chai": "^4.1.7",
     "@types/chai-spies": "^1.0.0",
+    "@types/minimist": "^1.2.0",
     "@types/mocha": "^5.2.5",
     "@types/node": "^10.12.3",
     "@types/npm": "^2.0.29",

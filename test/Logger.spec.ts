@@ -28,7 +28,7 @@ describe("Logger", () => {
         let loggerWriteFunction: any;
         const debugMessage = `Hello from ${Verbosity.Debug} verbosity.`;
         const defaultMessage = `Hello from ${Verbosity.Default} verbosity.`;
-        const noneMessage = `Hello from ${Verbosity.None} verbosity.`;
+        const silentMessage = `Hello from ${Verbosity.Silent} verbosity.`;
 
         beforeEach(function () {
             loggerWriteFunction = process.stdout.write;
@@ -48,14 +48,14 @@ describe("Logger", () => {
             //
             logger.Write(debugMessage, Verbosity.Debug);
             logger.Write(defaultMessage, Verbosity.Default);
-            logger.Write(noneMessage, Verbosity.None);
+            logger.Write(silentMessage, Verbosity.Silent);
 
             // Assert
             //
             expect(process.stdout.write).to.have.been.called.exactly(2);
             expect(process.stdout.write).to.have.been.first.called.with(debugMessage + '\n');
             expect(process.stdout.write).to.have.been.second.called.with(defaultMessage + '\n');
-            expect(process.stdout.write).to.have.not.been.called.with(noneMessage + '\n');
+            expect(process.stdout.write).to.have.not.been.called.with(silentMessage + '\n');
         });
 
         it(`Should write message when verbosity satisfies logger's minimum verbosity of "${Verbosity.Default}"`, () => {
@@ -68,34 +68,34 @@ describe("Logger", () => {
             //
             logger.Write(debugMessage, Verbosity.Debug);
             logger.Write(defaultMessage, Verbosity.Default);
-            logger.Write(noneMessage, Verbosity.None);
+            logger.Write(silentMessage, Verbosity.Silent);
 
             // Assert
             //
             expect(process.stdout.write).to.have.been.called.exactly(1);
             expect(process.stdout.write).to.have.not.been.called.with(debugMessage + '\n');
             expect(process.stdout.write).to.have.been.first.called.with(defaultMessage + '\n');
-            expect(process.stdout.write).to.have.not.been.called.with(noneMessage + '\n');
+            expect(process.stdout.write).to.have.not.been.called.with(silentMessage + '\n');
         });
 
-        it(`Should write message when verbosity satisfies logger's minimum verbosity of "${Verbosity.None}"`, () => {
+        it(`Should write message when verbosity satisfies logger's minimum verbosity of "${Verbosity.Silent}"`, () => {
             // Arrange
             //
             chai.spy.on(process.stdout, 'write', function () {});
-            const logger = new Logger(Verbosity.None);
+            const logger = new Logger(Verbosity.Silent);
 
             // Act
             //
             logger.Write(debugMessage, Verbosity.Debug);
             logger.Write(defaultMessage, Verbosity.Default);
-            logger.Write(noneMessage, Verbosity.None);
+            logger.Write(silentMessage, Verbosity.Silent);
 
             // Assert
             //
             expect(process.stdout.write).to.have.been.called.exactly(0);
             expect(process.stdout.write).to.have.not.been.called.with(debugMessage + '\n');
             expect(process.stdout.write).to.have.not.been.called.with(defaultMessage + '\n');
-            expect(process.stdout.write).to.have.not.been.called.with(noneMessage + '\n');
+            expect(process.stdout.write).to.have.not.been.called.with(silentMessage + '\n');
         });
     });
 });

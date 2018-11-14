@@ -13,5 +13,5 @@ export enum Verbosity {
      * Do not use this verbosity when writing logging messages. This is intended to be used when constructing a Logger,
      * so it does not write any messages.
      */
-    None = 'None'
+    Silent = 'Silent'
 }

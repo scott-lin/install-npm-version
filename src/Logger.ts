@@ -14,7 +14,7 @@ export class Logger {
      * @param verbosity Verbosity of the message.
      */
     Write(message: string, verbosity: Verbosity): void {
-        if (verbosity >= this.MinimumVerbosity && verbosity !== Verbosity.None) {
+        if (verbosity >= this.MinimumVerbosity && verbosity !== Verbosity.Silent) {
             process.stdout.write(`${message}\n`);
         }
     }
