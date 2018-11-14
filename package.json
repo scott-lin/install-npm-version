@@ -15,7 +15,10 @@
     "url": "git+https://github.com/scott-lin/install-npm-version.git"
   },
   "keywords": [
-    "install"
+    "install",
+    "multiple",
+    "npm",
+    "versions"
   ],
   "author": "Scott Lin",
   "license": "MIT",
