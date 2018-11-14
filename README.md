@@ -1,5 +1,10 @@
 # install-npm-version
 
+[![npm-version][npm-version-badge]][npm-version-href]
+[![build-status][build-status-badge]][build-status-href]
+[![dependencies][dependencies-badge]][dependencies-href]
+[![dev-dependencies][dev-dependencies-badge]][dev-dependencies-href]
+
 Install multiple versions of a node module to versioned or custom directories.
 
 ## Command Line Usage
@@ -115,3 +120,15 @@ installNpmVersion('chalk@2.4.1', { 'Destination': 'mydir' });
 installNpmVersion('chalk@2.4.1', { 'Destination': 'mydir', 'Overwrite': true });
 // installs chalk@2.4.1 to node_modules/mydir/ by overwriting existing install
 ```
+
+[npm-version-badge]: https://img.shields.io/npm/v/install-npm-version.svg?style=flat-square
+[npm-version-href]: https://www.npmjs.com/package/install-npm-version
+
+[build-status-badge]: https://img.shields.io/travis/scott-lin/install-npm-version/master.svg?style=flat-square
+[build-status-href]: https://travis-ci.org/scott-lin/install-npm-version/branches
+
+[dependencies-badge]: https://img.shields.io/david/scott-lin/install-npm-version.svg?style=flat-square
+[dependencies-href]: https://david-dm.org/scott-lin/install-npm-version#info=dependencies
+
+[dev-dependencies-badge]: https://img.shields.io/david/dev/scott-lin/install-npm-version.svg?style=flat-square
+[dev-dependencies-href]: https://david-dm.org/scott-lin/install-npm-version#info=devDependencies
