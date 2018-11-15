@@ -58,7 +58,7 @@ const installOptions: IOptions = {
 
 console.log(installOptions.WorkingDirectory);
 
-installNpmVersion.default(packageName, installOptions)
+installNpmVersion.Install(packageName, installOptions)
     .then(function () {
         process.exit(0);
     })

@@ -79,45 +79,45 @@ npm install install-npm-version --save-dev
 #### Install to versioned (default) directory
 
 ```typescript
-import installNpmVersion = require('install-npm-version');
+import inv = require('install-npm-version');
 
-installNpmVersion('chalk@2.4.0');
+inv.Install('chalk@2.4.0');
 // installs chalk@2.4.0 to node_modules/chalk@2.4.0/
 
-installNpmVersion('chalk@2.4.1');
+inv.Install('chalk@2.4.1');
 // installs chalk@2.4.1 to node_modules/chalk@2.4.1/
 ```
 
 #### Install to custom directory
 
 ```typescript
-import installNpmVersion = require('install-npm-version');
+import inv = require('install-npm-version');
 
-installNpmVersion('chalk@2.4.0', { 'Destination': 'some/path/chalk' });
+inv.Install('chalk@2.4.0', { 'Destination': 'some/path/chalk' });
 // installs chalk@2.4.0 to node_modules/some/path/chalk/
 ```
 
 #### Install with silent or noisy standard output
 
 ```typescript
-import installNpmVersion = require('install-npm-version');
+import inv = require('install-npm-version');
 
-installNpmVersion('chalk@2.4.0', { 'Verbosity': 'Silent' }); // silent
-installNpmVersion('chalk@2.4.0', { 'Verbosity': 'Debug' }); // noisy
+inv.Install('chalk@2.4.0', { 'Verbosity': 'Silent' });
+inv.Install('chalk@2.4.0', { 'Verbosity': 'Debug' });
 ```
 
 #### Overwrite an existing installation
 
 ```typescript
-import installNpmVersion = require('install-npm-version');
+import inv = require('install-npm-version');
 
-installNpmVersion('chalk@2.4.0', { 'Destination': 'mydir' });
+inv.Install('chalk@2.4.0', { 'Destination': 'mydir' });
 // installs chalk@2.4.0 to node_modules/mydir/
 
-installNpmVersion('chalk@2.4.1', { 'Destination': 'mydir' });
+inv.Install('chalk@2.4.1', { 'Destination': 'mydir' });
 // does not install chalk@2.4.1 since node_modules/mydir/ already exists
 
-installNpmVersion('chalk@2.4.1', { 'Destination': 'mydir', 'Overwrite': true });
+inv.Install('chalk@2.4.1', { 'Destination': 'mydir', 'Overwrite': true });
 // installs chalk@2.4.1 to node_modules/mydir/ by overwriting existing install
 ```
 

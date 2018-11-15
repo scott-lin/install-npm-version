@@ -4,49 +4,50 @@ import { Verbosity } from './Verbosity';
 import fs = require('fs');
 import path = require('path');
 
-export class FileSystem {
-    
+export class FileSystem {    
     /*
-     * Recursively reads files & directories from a source location and writes them to another location.
+     * Copies files from one location to another by reading source paths from the given array and writing to the
+     * corresponding indexed path in the destination array.
      *
-     * @param sourceDirectoryPath Path where files & directories should be read.
-     * @param destinationPath Path where files & directories should be written.
-     * @param isParent True indicates items will be written to a newly created subfolder, with the same name as the source,
-     *                 at the destination path. False indicates items will be written directly into the destination directory.
+     * @param sourceFilePaths Paths of files to read.
+     * @param destinationFilePaths Paths of files to write.
      */
-    static CopyDirectoryRecursively(sourceDirectoryPath: string, destinationPath: string, isParent = true): void {
-        if (!sourceDirectoryPath) {
-            throw new Error('Source directory path must be defined.');
+    static CopyFiles(sourceFilePaths: string[], destinationFilePaths: string[]): void {
+        if (!sourceFilePaths) {
+            throw new Error('Source file paths must be defined.');
         }
 
-        if (!destinationPath) {
-            throw new Error('Destination path must be defined.');
+        if (!destinationFilePaths) {
+            throw new Error('Destination file paths must be defined.');
         }
 
-        if (fs.lstatSync(sourceDirectoryPath).isDirectory()) {
-            // Create a directory, with the same name as the source, at the destination root when it does not exist.
-            //
-            const copyToPath = isParent ? path.join(destinationPath, path.basename(sourceDirectoryPath)) : destinationPath;
-            if (!fs.existsSync(copyToPath)) {
-                fs.mkdirSync(copyToPath, { recursive: true });
-            }
+        if (sourceFilePaths.length !== destinationFilePaths.length) {
+            throw new Error('Source and destination file path count must be equal.');
+        }
 
-            // Recursively read and write files/directories.
-            //
-            fs.readdirSync(sourceDirectoryPath).forEach( function (item) {
-                let itemPath = path.join(sourceDirectoryPath, item);
-                
-                if (fs.lstatSync(itemPath).isDirectory()) {
-                    FileSystem.CopyDirectoryRecursively(itemPath, copyToPath);
-                } else {
-                    let fileCopyPath = copyToPath;
-                    if (fs.existsSync(copyToPath) && fs.lstatSync(copyToPath).isDirectory()) {
-                        fileCopyPath = path.join(copyToPath, path.basename(itemPath));
-                    }
-
-                    fs.writeFileSync(fileCopyPath, fs.readFileSync(itemPath));
+        const destinationDirectoryPaths =
+            [...new Set(destinationFilePaths.map((filePath) => path.dirname(filePath)))]
+            .sort()
+            .filter((directoryPath, index, array) => {
+                if (index + 1 < array.length) {
+                    return !array[index + 1].startsWith(directoryPath);
                 }
-            } );
+
+                return directoryPath;
+            });
+
+        // Create all directories to copy files into.
+        //
+        destinationDirectoryPaths.forEach((directoryPath) => {
+            if (!fs.existsSync(directoryPath)) {
+                fs.mkdirSync(directoryPath, { recursive: true });
+            }
+        });
+
+        // Copy each file to its destination.
+        //
+        for (let i = 0; i < sourceFilePaths.length; i++) {
+            fs.copyFileSync(sourceFilePaths[i], destinationFilePaths[i]);
         }
     }
 
@@ -84,21 +85,34 @@ export class FileSystem {
         if (!fs.existsSync(packageNodeModulesPath)) {
             fs.mkdirSync(packageNodeModulesPath);
         }
-        
-        const isDirectory = (source: string) => fs.lstatSync(source).isDirectory();
-        const getDirectories = (source: string) => fs.readdirSync(source).map(name => path.join(source, name)).filter(isDirectory);
-        
+                
         logger.Write(`Copying ${packageName} package dependencies to "${packageNodeModulesPath}".`, Verbosity.Debug);
         
-        getDirectories(installationNodeModulesPath)
-            .filter(directoryPath => path.basename(directoryPath) !== packageName)
-            .forEach(directoryPath => {
-                const dependencyPackageName = path.basename(directoryPath);
-                const sourcePath = path.join(installationNodeModulesPath, dependencyPackageName);
+        const sourceFilePaths = FileSystem.EnumerateFilesRecursively(installationNodeModulesPath)
+            .filter((filePath) => !filePath.startsWith(path.join(installationNodeModulesPath, packageName)));
 
-                logger.Write(`  Copying dependency "${dependencyPackageName}".`, Verbosity.Debug);
-                FileSystem.CopyDirectoryRecursively(sourcePath, packageNodeModulesPath);
-            });
+        const destinationFilePaths = sourceFilePaths
+            .map((filePath) => path.join(packageNodeModulesPath, filePath.split(installationNodeModulesPath).pop() as string));
+
+        FileSystem.CopyFiles(sourceFilePaths, destinationFilePaths);
+    }
+
+    static EnumerateFilesRecursively(directoryPath: string) {
+        let results: string[] = [];
+        const list = fs.readdirSync(directoryPath);
+
+        list.forEach(function(file) {
+            file = path.join(directoryPath, file);
+            const stat = fs.statSync(file);
+
+            if (stat && stat.isDirectory()) { 
+                results = results.concat(FileSystem.EnumerateFilesRecursively(file));
+            } else { 
+                results.push(file);
+            }
+        });
+
+        return results;
     }
 
     /*
