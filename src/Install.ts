@@ -13,7 +13,7 @@ import path = require('path');
  * @param npmPackage NPM package to install.
  * @param options Optional settings to control the installation.
  */
-export default async function (npmPackage: string, options?: IOptions): Promise<void> {
+export async function Install(npmPackage: string, options?: IOptions): Promise<void> {
     if (!npmPackage) {
         throw new Error('A NPM package to install must be specified. moment@2.22.2 or lodash@4.17.11 are examples.');
     }
@@ -48,18 +48,30 @@ export default async function (npmPackage: string, options?: IOptions): Promise<
     let error;
 
     try {
+        // Install the package to the staging location.
+        //
         Npm.InstallPackage(settings, logger, temporaryStagingPath);
 
+        // Fetch the package's official name and use it to copy dependencies into the staged package folder.
+        //
         const packageName = await Npm.GetPackageName(settings, logger);
-
         FileSystem.CopyPackageDependencies(logger, packageName, temporaryStagingPath);
 
+        // Ensure the final installation path is cleared.
+        //
         if (FileSystem.RemoveDirectoryRecursively(settings.InstallPath)) {
             logger.Write(`Deleted existing directory at final installation path "${settings.InstallPath}".`, Verbosity.Debug);
         }
 
+        // Copy staged package folder to its final destination.
+        //
         const stagedPackagePath = path.join(temporaryStagingPath, 'node_modules', packageName);
-        FileSystem.CopyDirectoryRecursively(stagedPackagePath, settings.InstallPath, false);
+        const stagedFilePaths = FileSystem.EnumerateFilesRecursively(stagedPackagePath);
+        const finalizedFilePaths = stagedFilePaths
+            .map((filePath) => path.join(settings.InstallPath, filePath.split(stagedPackagePath).pop() as string));
+            
+        logger.Write(`Copying staged package "${stagedPackagePath}" to final destination "${settings.InstallPath}".`, Verbosity.Debug);
+        FileSystem.CopyFiles(stagedFilePaths, finalizedFilePaths);
 
         logger.Write(`Installed ${settings.NpmPackage} to "${settings.InstallPath}".`, Verbosity.Default);
     } catch (err) {

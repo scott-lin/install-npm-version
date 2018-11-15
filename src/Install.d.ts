@@ -4,5 +4,5 @@
 
 import { IOptions } from './IOptions';
 
-export { IOptions };
-export declare function InstallNpmVersion(npmPackage: string, options?: IOptions): Promise<void>;
+export { IOptions } from './IOptions';
+export declare function Install(npmPackage: string, options?: IOptions): Promise<void>;
