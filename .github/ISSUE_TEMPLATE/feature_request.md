@@ -1,7 +1,9 @@
 ---
 name: Feature request
 about: Suggest a new idea for this project.
-labels: 
+title: ''
+labels: ''
+assignees: ''
 
 ---
 
