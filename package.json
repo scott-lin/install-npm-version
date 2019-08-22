@@ -1,6 +1,6 @@
 {
   "name": "install-npm-version",
-  "version": "1.0.3",
+  "version": "1.0.4-beta.0",
   "description": "Install multiple versions of a NPM package side-by-side.",
   "main": "lib/Install.js",
   "types": "lib/Install.d.ts",
