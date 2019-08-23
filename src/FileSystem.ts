@@ -4,7 +4,7 @@ import { Verbosity } from './Verbosity';
 import fs = require('fs');
 import path = require('path');
 
-export class FileSystem {    
+export class FileSystem {
     /*
      * Copies files from one location to another by reading source paths from the given array and writing to the
      * corresponding indexed path in the destination array.
@@ -25,16 +25,21 @@ export class FileSystem {
             throw new Error('Source and destination file path count must be equal.');
         }
 
+        // Find the set of directory paths we should create before copying.
+        //
         const destinationDirectoryPaths =
             [...new Set(destinationFilePaths.map((filePath) => path.dirname(filePath)))]
-            .sort()
-            .filter((directoryPath, index, array) => {
-                if (index + 1 < array.length) {
-                    return !array[index + 1].startsWith(directoryPath);
-                }
+                .sort()
+                .filter((directoryPath, index, array) => {
+                    if (index + 1 < array.length) {
+                        var next = array[index + 1];
 
-                return directoryPath;
-            });
+                        return !next.startsWith(directoryPath)
+                            || (directoryPath.length < next.length && !(next[directoryPath.length] == '/' || next[directoryPath.length] == '\\'));
+                    }
+
+                    return directoryPath;
+                });
 
         // Create all directories to copy files into.
         //
@@ -52,7 +57,7 @@ export class FileSystem {
     }
 
     /*
-     * Copies any NPM config file found in the working directory to a destination when applicable based on settings. 
+     * Copies any NPM config file found in the working directory to a destination when applicable based on settings.
      *
      * @param settings Settings to control when to copy and from where.
      * @param logger Entity to use when writing logging messages.
@@ -85,9 +90,9 @@ export class FileSystem {
         if (!fs.existsSync(packageNodeModulesPath)) {
             fs.mkdirSync(packageNodeModulesPath);
         }
-                
+
         logger.Write(`Copying ${packageName} package dependencies to "${packageNodeModulesPath}".`, Verbosity.Debug);
-        
+
         const sourceFilePaths = FileSystem.EnumerateFilesRecursively(installationNodeModulesPath)
             .filter((filePath) => !filePath.startsWith(path.join(installationNodeModulesPath, packageName)));
 
@@ -101,13 +106,13 @@ export class FileSystem {
         let results: string[] = [];
         const list = fs.readdirSync(directoryPath);
 
-        list.forEach(function(file) {
+        list.forEach(function (file) {
             file = path.join(directoryPath, file);
             const stat = fs.statSync(file);
 
-            if (stat && stat.isDirectory()) { 
+            if (stat && stat.isDirectory()) {
                 results = results.concat(FileSystem.EnumerateFilesRecursively(file));
-            } else { 
+            } else {
                 results.push(file);
             }
         });
@@ -124,7 +129,7 @@ export class FileSystem {
      */
     static RemoveDirectoryRecursively(directoryPath: string): boolean {
         if (fs.existsSync(directoryPath) && fs.lstatSync(directoryPath).isDirectory()) {
-            fs.readdirSync(directoryPath).forEach(function(item) {
+            fs.readdirSync(directoryPath).forEach(function (item) {
                 var childPath = path.join(directoryPath, item);
 
                 if (fs.lstatSync(childPath).isDirectory()) {

@@ -1,6 +1,6 @@
 {
   "name": "install-npm-version",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Install multiple versions of a NPM package side-by-side.",
   "main": "lib/Install.js",
   "types": "lib/Install.d.ts",
@@ -29,25 +29,25 @@
   "homepage": "https://github.com/scott-lin/install-npm-version#readme",
   "dependencies": {
     "minimist": "^1.2.0",
-    "npm": "^6.4.1",
-    "sanitize-filename": "^1.6.1"
+    "npm": "^6.11.2",
+    "sanitize-filename": "^1.6.2"
   },
   "devDependencies": {
-    "@types/chai": "^4.1.7",
-    "@types/chai-spies": "^1.0.0",
+    "@types/chai": "^4.2.0",
+    "@types/chai-spies": "^1.0.1",
     "@types/minimist": "^1.2.0",
-    "@types/mocha": "^5.2.5",
-    "@types/node": "^10.12.3",
-    "@types/npm": "^2.0.29",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^12.7.2",
+    "@types/npm": "^2.0.30",
     "@types/sanitize-filename": "^1.1.28",
     "chai": "^4.2.0",
     "chai-spies": "^1.0.0",
-    "del": "^3.0.0",
-    "gulp": "^4.0.0",
-    "gulp-mocha": "^6.0.0",
-    "gulp-typescript": "^5.0.0-alpha.3",
-    "mocha": "^5.2.0",
-    "ts-node": "^7.0.1",
-    "typescript": "^3.1.6"
+    "del": "^5.1.0",
+    "gulp": "^4.0.2",
+    "gulp-mocha": "^7.0.1",
+    "gulp-typescript": "^5.0.1",
+    "mocha": "^6.2.0",
+    "ts-node": "^8.3.0",
+    "typescript": "^3.5.3"
   }
 }
