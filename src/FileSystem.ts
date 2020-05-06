@@ -68,7 +68,7 @@ export class FileSystem {
             const npmrcFilePath = path.join(settings.WorkingDirectory, '.npmrc');
 
             if (fs.existsSync(npmrcFilePath)) {
-                fs.copyFileSync(npmrcFilePath, destinationPath);
+                fs.copyFileSync(npmrcFilePath, path.join(destinationPath, '.npmrc'));
                 logger.Write(`Copied local NPM config file "${npmrcFilePath}" to staging directory "${destinationPath}".`, Verbosity.Debug);
             }
         }
@@ -106,7 +106,7 @@ export class FileSystem {
         let results: string[] = [];
         const list = fs.readdirSync(directoryPath);
 
-        list.forEach(function (file) {
+        list.forEach(function (file: any) {
             file = path.join(directoryPath, file);
             const stat = fs.statSync(file);
 
@@ -129,7 +129,7 @@ export class FileSystem {
      */
     static RemoveDirectoryRecursively(directoryPath: string): boolean {
         if (fs.existsSync(directoryPath) && fs.lstatSync(directoryPath).isDirectory()) {
-            fs.readdirSync(directoryPath).forEach(function (item) {
+            fs.readdirSync(directoryPath).forEach(function (item: any) {
                 var childPath = path.join(directoryPath, item);
 
                 if (fs.lstatSync(childPath).isDirectory()) {
