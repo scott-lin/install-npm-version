@@ -1,7 +1,7 @@
 # install-npm-version
 
 [![npm-version][npm-version-badge]][npm-version-href]
-![](https://github.com/scott-lin/install-npm-version/workflows/ci/badge.svg)
+![](https://github.com/scott-lin/install-npm-version/workflows/CI/badge.svg)
 [![dependencies][dependencies-badge]][dependencies-href]
 [![dev-dependencies][dev-dependencies-badge]][dev-dependencies-href]
 
