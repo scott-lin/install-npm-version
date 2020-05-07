@@ -1,6 +1,6 @@
 {
   "name": "install-npm-version",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Install multiple versions of a NPM package side-by-side.",
   "main": "lib/Install.js",
   "types": "lib/Install.d.ts",
@@ -28,8 +28,8 @@
   },
   "homepage": "https://github.com/scott-lin/install-npm-version#readme",
   "dependencies": {
-    "minimist": "^1.2.0",
-    "npm": "^6.11.2",
+    "minimist": "^1.2.5",
+    "npm": "^6.14.5",
     "sanitize-filename": "^1.6.2"
   },
   "devDependencies": {
