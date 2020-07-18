@@ -1,6 +1,6 @@
 {
   "name": "install-npm-version",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Install multiple versions of a NPM package side-by-side.",
   "main": "lib/Install.js",
   "types": "lib/Install.d.ts",
@@ -30,24 +30,24 @@
   "dependencies": {
     "minimist": "^1.2.5",
     "npm": "^6.14.5",
-    "sanitize-filename": "^1.6.2"
+    "sanitize-filename": "^1.6.3"
   },
   "devDependencies": {
-    "@types/chai": "^4.2.0",
+    "@types/chai": "^4.2.11",
     "@types/chai-spies": "^1.0.1",
     "@types/minimist": "^1.2.0",
     "@types/mocha": "^5.2.7",
-    "@types/node": "^12.7.2",
-    "@types/npm": "^2.0.30",
-    "@types/sanitize-filename": "^1.1.28",
+    "@types/node": "^12.12.50",
+    "@types/npm": "^2.0.31",
+    "@types/sanitize-filename": "^1.6.3",
     "chai": "^4.2.0",
     "chai-spies": "^1.0.0",
     "del": "^5.1.0",
     "gulp": "^4.0.2",
-    "gulp-mocha": "^7.0.1",
+    "gulp-mocha": "^7.0.2",
     "gulp-typescript": "^5.0.1",
-    "mocha": "^6.2.0",
-    "ts-node": "^8.3.0",
-    "typescript": "^3.5.3"
+    "mocha": "^6.2.3",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.7"
   }
 }
