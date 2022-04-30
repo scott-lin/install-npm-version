@@ -2,8 +2,6 @@
 
 [![npm-version][npm-version-badge]][npm-version-href]
 ![](https://github.com/scott-lin/install-npm-version/workflows/CI/badge.svg)
-[![dependencies][dependencies-badge]][dependencies-href]
-[![dev-dependencies][dev-dependencies-badge]][dev-dependencies-href]
 
 Install multiple versions of a node module to versioned or custom directories.
 
@@ -123,9 +121,3 @@ inv.Install('chalk@2.4.1', { 'Destination': 'mydir', 'Overwrite': true });
 
 [npm-version-badge]: https://img.shields.io/npm/v/install-npm-version.svg?style=flat-square
 [npm-version-href]: https://www.npmjs.com/package/install-npm-version
-
-[dependencies-badge]: https://img.shields.io/david/scott-lin/install-npm-version.svg?style=flat-square
-[dependencies-href]: https://david-dm.org/scott-lin/install-npm-version#info=dependencies
-
-[dev-dependencies-badge]: https://img.shields.io/david/dev/scott-lin/install-npm-version.svg?style=flat-square
-[dev-dependencies-href]: https://david-dm.org/scott-lin/install-npm-version#info=devDependencies
