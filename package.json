@@ -29,7 +29,7 @@
   "homepage": "https://github.com/scott-lin/install-npm-version#readme",
   "dependencies": {
     "minimist": "^1.2.6",
-    "npm": "^6.14.13",
+    "npm": "^9.4.1",
     "sanitize-filename": "^1.6.3"
   },
   "devDependencies": {
